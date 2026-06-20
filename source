@@ -616,8 +616,8 @@ function Chloex:Window(GuiConfig)
     TextLabelExtra.Name = "TitleExtra"
     TextLabelExtra.Font = Enum.Font.Gotham          -- font biasa, bukan Bold
     TextLabelExtra.Text = ""
-    TextLabelExtra.TextColor3 = Color3.fromRGB(200, 200, 210)
-    TextLabelExtra.TextSize = 13
+    TextLabelExtra.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabelExtra.TextSize = 12
     TextLabelExtra.TextXAlignment = Enum.TextXAlignment.Left
     TextLabelExtra.BackgroundTransparency = 1
     TextLabelExtra.BorderSizePixel = 0
