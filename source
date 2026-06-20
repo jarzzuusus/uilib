@@ -251,7 +251,7 @@ end
 function Chloex:Window(GuiConfig)
     GuiConfig               = GuiConfig or {}
     GuiConfig.Title         = GuiConfig.Title or "Chloe X"
-    GuiConfig.Footer        = GuiConfig.Footer or "Chloee :3"
+    GuiConfig.Footer        = GuiConfig.Footer or ""
     GuiConfig.TitleExtra     = GuiConfig.TitleExtra or ""  
     GuiConfig.Footer2        = GuiConfig.Footer2 or ""
     GuiConfig.Content       = GuiConfig.Content or ""
@@ -616,7 +616,7 @@ function Chloex:Window(GuiConfig)
     TextLabelExtra.Name = "TitleExtra"
     TextLabelExtra.Font = Enum.Font.Gotham          -- font biasa, bukan Bold
     TextLabelExtra.Text = ""
-    TextLabelExtra.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabelExtra.TextColor3 = Color3.fromRGB(0, 208, 255)
     TextLabelExtra.TextSize = 12
     TextLabelExtra.TextXAlignment = Enum.TextXAlignment.Left
     TextLabelExtra.BackgroundTransparency = 1
@@ -1281,8 +1281,8 @@ function Chloex:Window(GuiConfig)
         local TagLabel = Instance.new("TextLabel")
         TagLabel.Font = Enum.Font.GothamBold
         TagLabel.Text = TagConfig.Title
-        TagLabel.TextColor3 = Color3.fromRGB(15, 15, 15)
-        TagLabel.TextSize = 11
+        TagLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TagLabel.TextSize = 13
         TagLabel.BackgroundTransparency = 1
         TagLabel.BorderSizePixel = 0
         TagLabel.AutomaticSize = Enum.AutomaticSize.X
