@@ -1697,7 +1697,7 @@ function Chloex:Window(GuiConfig)
                     SectionFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 22)
                     SectionFrame.BackgroundTransparency = 0.1
                     SectionFrame.BorderSizePixel = 0
-                    SectionFrame.Size = UDim2.new(1, 0, 0, 15)
+                    SectionFrame.Size = UDim2.new(1, 0, 0, 32)
                     SectionFrame.AutomaticSize = Enum.AutomaticSize.Y
                     SectionFrame.ZIndex = 4
                     SectionFrame.Parent = targetCol
@@ -1735,7 +1735,7 @@ function Chloex:Window(GuiConfig)
 
                     local contentFrame = Instance.new("Frame")
                     contentFrame.Name = "Content"
-                    contentFrame.BackgroundTransparency = 1
+                    contentFrame.BackgroundTransparency = 0.1
                     contentFrame.BorderSizePixel = 0
                     contentFrame.Position = UDim2.new(0, 8, 0, 32)
                     contentFrame.Size = UDim2.new(1, -16, 0, 0)
