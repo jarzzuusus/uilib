@@ -5,7 +5,7 @@ local HttpService = game:GetService("HttpService")
 local Players     = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local RunService  = game:GetService("RunService")
-local BASE = "https://raw.githubusercontent.com/nenektuek/golden/refs/heads/main/dist/main.lua"
+local BASE = "https://raw.githubusercontent.com/nenektuek/golden/refs/heads/main/"
 local function load(path) return loadstring(game:HttpGet(BASE .. path))() end
 local function loadUrl(url) return loadstring(game:HttpGet(url))() end
 
