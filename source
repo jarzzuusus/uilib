@@ -1737,7 +1737,7 @@ function Chloex:Window(GuiConfig)
                     contentFrame.Name = "Content"
                     contentFrame.BackgroundTransparency = 1
                     contentFrame.BorderSizePixel = 0
-                    contentFrame.Position = UDim2.new(0, 8, 0, 32)
+                    contentFrame.Position = UDim2.new(0, 8, 0, 25)
                     contentFrame.Size = UDim2.new(1, -16, 0, 0)
                     contentFrame.AutomaticSize = Enum.AutomaticSize.Y
                     contentFrame.ZIndex = 5
