@@ -800,7 +800,8 @@ function Chloex:Window(GuiConfig)
     end
 
     TextLabel:GetPropertyChangedSignal("TextBounds"):Connect(UpdateTagPosition)
-    TextLabel1:GetPropertyChangedSignal("TextBounds"):Connect(UpdateTagPosition)
+    TextLabel1:GetPropertyChangedSignal("AbsoluteSize"):Connect(UpdateTagPosition)
+    TextLabel2:GetPropertyChangedSignal("AbsoluteSize"):Connect(UpdateTagPosition)  -- sekalian tambahin ini, biar Tag ikut reposisi kalau Footer2 berubah ukuran
     Top:GetPropertyChangedSignal("AbsoluteSize"):Connect(UpdateTagPosition)
     UpdateTagPosition()
 
