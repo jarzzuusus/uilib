@@ -1697,7 +1697,7 @@ function Chloex:Window(GuiConfig)
                     SectionFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 22)
                     SectionFrame.BackgroundTransparency = 0.1
                     SectionFrame.BorderSizePixel = 0
-                    SectionFrame.Size = UDim2.new(1, 0, 0, 32)
+                    SectionFrame.Size = UDim2.new(1, 0, 0, 15)
                     SectionFrame.AutomaticSize = Enum.AutomaticSize.Y
                     SectionFrame.ZIndex = 4
                     SectionFrame.Parent = targetCol
@@ -1729,7 +1729,7 @@ function Chloex:Window(GuiConfig)
                     hline.BackgroundTransparency = 0.75
                     hline.BorderSizePixel = 0
                     hline.Size = UDim2.new(1, -16, 0, 1)
-                    hline.Position = UDim2.new(0, 8, 0, 10)
+                    hline.Position = UDim2.new(0, 8, 0, 26)
                     hline.ZIndex = 5
                     hline.Parent = SectionFrame
 
