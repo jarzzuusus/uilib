@@ -1729,7 +1729,7 @@ function Chloex:Window(GuiConfig)
                     hline.BackgroundTransparency = 0.75
                     hline.BorderSizePixel = 0
                     hline.Size = UDim2.new(1, -16, 0, 1)
-                    hline.Position = UDim2.new(0, 8, 0, 26)
+                    hline.Position = UDim2.new(0, 8, 0, 10)
                     hline.ZIndex = 5
                     hline.Parent = SectionFrame
 
@@ -1737,7 +1737,7 @@ function Chloex:Window(GuiConfig)
                     contentFrame.Name = "Content"
                     contentFrame.BackgroundTransparency = 1
                     contentFrame.BorderSizePixel = 0
-                    contentFrame.Position = UDim2.new(0, 8, 0, 15)
+                    contentFrame.Position = UDim2.new(0, 8, 0, 32)
                     contentFrame.Size = UDim2.new(1, -16, 0, 0)
                     contentFrame.AutomaticSize = Enum.AutomaticSize.Y
                     contentFrame.ZIndex = 5
