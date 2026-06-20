@@ -397,9 +397,9 @@ function Chloex:Window(GuiConfig)
     local TitleIcon         = Instance.new("ImageLabel")
     local TextLabel         = Instance.new("TextLabel")
     local UICorner1         = Instance.new("UICorner")
-    local TextLabel1        = Instance.new("TextLabel")
-    local TextLabelExtra    = Instance.new("TextLabel")  -- ← TAMBAH INI
-    local TextLabel2        = Instance.new("TextLabel")  -- ← TAMBAH INI (Footer 2)
+    local TextLabel1        = Instance.new("Frame")        -- Footer 1 jadi badge
+    local TextLabelExtra    = Instance.new("TextLabel")     -- title extra tetap teks biasa
+    local TextLabel2        = Instance.new("Frame")         -- Footer 2 jadi badge
     local Close             = Instance.new("TextButton")
     local ImageLabel1       = Instance.new("ImageLabel")
     local Min               = Instance.new("TextButton")
@@ -633,40 +633,81 @@ function Chloex:Window(GuiConfig)
     TitleExtraStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Contextual
     TitleExtraStroke.Parent = TextLabelExtra
 
-    -- ===== FOOTER 1 =====
-    TextLabel1.Font = Enum.Font.GothamBold
-    TextLabel1.Text = ""
-    TextLabel1.TextColor3 = GuiConfig.Color
-    TextLabel1.TextSize = 14
-    TextLabel1.TextXAlignment = Enum.TextXAlignment.Left
-    TextLabel1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextLabel1.BackgroundTransparency = 0.999
-    TextLabel1.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    TextLabel1.BorderSizePixel = 0
-    TextLabel1.AutomaticSize = Enum.AutomaticSize.X
-    TextLabel1.Size = UDim2.new(0, 0, 1, 0)
-    TextLabel1.Parent = Top
+   -- ===== FOOTER 1 (badge) =====
+   TextLabel1.Name = "Footer1Badge"
+   TextLabel1.BackgroundColor3 = Color3.fromRGB(28, 28, 34)
+   TextLabel1.BackgroundTransparency = 0
+   TextLabel1.BorderSizePixel = 0
+   TextLabel1.AutomaticSize = Enum.AutomaticSize.X
+   TextLabel1.Size = UDim2.new(0, 0, 0, 20)
+   TextLabel1.AnchorPoint = Vector2.new(0, 0.5)
+   TextLabel1.Position = UDim2.new(0, 0, 0.5, 0)
+   TextLabel1.Visible = GuiConfig.Footer ~= ""
+   TextLabel1.Parent = Top
 
-    -- ===== FOOTER 2 (Executor) =====
-    TextLabel2.Name = "Footer2"
-    TextLabel2.Font = Enum.Font.Gotham              -- font biasa biar gak terlalu tebal
-    TextLabel2.Text = ""
-    TextLabel2.TextColor3 = Color3.fromRGB(170, 170, 180)
-    TextLabel2.TextSize = 13
-    TextLabel2.TextXAlignment = Enum.TextXAlignment.Left
-    TextLabel2.BackgroundTransparency = 1
-    TextLabel2.BorderSizePixel = 0
-    TextLabel2.AutomaticSize = Enum.AutomaticSize.X
-    TextLabel2.Size = UDim2.new(0, 0, 1, 0)
-    TextLabel2.Visible = GuiConfig.Footer2 ~= ""
-    TextLabel2.Parent = Top
+   Instance.new("UICorner", TextLabel1).CornerRadius = UDim.new(1, 0)
 
-    local Footer2Stroke = Instance.new("UIStroke")
-    Footer2Stroke.Thickness = 0.6
-    Footer2Stroke.Color = Color3.fromRGB(0, 0, 0)
-    Footer2Stroke.Transparency = 0.7
-    Footer2Stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Contextual
-    Footer2Stroke.Parent = TextLabel2
+   local Footer1Stroke = Instance.new("UIStroke")
+   Footer1Stroke.Thickness = 1
+   Footer1Stroke.Color = GuiConfig.Color
+   Footer1Stroke.Transparency = 0.5
+   Footer1Stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+   Footer1Stroke.Parent = TextLabel1
+
+   local Footer1Pad = Instance.new("UIPadding")
+   Footer1Pad.PaddingLeft = UDim.new(0, 10)
+   Footer1Pad.PaddingRight = UDim.new(0, 10)
+   Footer1Pad.Parent = TextLabel1
+
+   local Footer1Text = Instance.new("TextLabel")
+   Footer1Text.Name = "Text"
+   Footer1Text.Font = Enum.Font.GothamBold
+   Footer1Text.Text = ""
+   Footer1Text.TextColor3 = GuiConfig.Color
+   Footer1Text.TextSize = 12
+   Footer1Text.TextXAlignment = Enum.TextXAlignment.Center
+   Footer1Text.BackgroundTransparency = 1
+   Footer1Text.AutomaticSize = Enum.AutomaticSize.X
+   Footer1Text.Size = UDim2.new(0, 0, 1, 0)
+   Footer1Text.Parent = TextLabel1
+
+   -- ===== FOOTER 2 (badge, Executor) =====
+   TextLabel2.Name = "Footer2Badge"
+   TextLabel2.BackgroundColor3 = Color3.fromRGB(28, 28, 34)
+   TextLabel2.BackgroundTransparency = 0
+   TextLabel2.BorderSizePixel = 0
+   TextLabel2.AutomaticSize = Enum.AutomaticSize.X
+   TextLabel2.Size = UDim2.new(0, 0, 0, 20)
+   TextLabel2.AnchorPoint = Vector2.new(0, 0.5)
+   TextLabel2.Position = UDim2.new(0, 0, 0.5, 0)
+   TextLabel2.Visible = GuiConfig.Footer2 ~= ""
+   TextLabel2.Parent = Top
+
+   Instance.new("UICorner", TextLabel2).CornerRadius = UDim.new(1, 0)
+
+   local Footer2Stroke = Instance.new("UIStroke")
+   Footer2Stroke.Thickness = 1
+   Footer2Stroke.Color = Color3.fromRGB(120, 120, 130)
+   Footer2Stroke.Transparency = 0.5
+   Footer2Stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+   Footer2Stroke.Parent = TextLabel2
+
+   local Footer2Pad = Instance.new("UIPadding")
+   Footer2Pad.PaddingLeft = UDim.new(0, 10)
+   Footer2Pad.PaddingRight = UDim.new(0, 10)
+   Footer2Pad.Parent = TextLabel2
+
+   local Footer2Text = Instance.new("TextLabel")
+   Footer2Text.Name = "Text"
+   Footer2Text.Font = Enum.Font.Gotham
+   Footer2Text.Text = ""
+   Footer2Text.TextColor3 = Color3.fromRGB(190, 190, 200)
+   Footer2Text.TextSize = 12
+   Footer2Text.TextXAlignment = Enum.TextXAlignment.Center
+   Footer2Text.BackgroundTransparency = 1
+   Footer2Text.AutomaticSize = Enum.AutomaticSize.X
+   Footer2Text.Size = UDim2.new(0, 0, 1, 0)
+   Footer2Text.Parent = TextLabel2
 
     if GuiConfig.Animation then
         TextLabel1.Visible = false
@@ -694,13 +735,12 @@ function Chloex:Window(GuiConfig)
     else
         TextLabel.Text = GuiConfig.Title
         TextLabelExtra.Text = GuiConfig.TitleExtra ~= "" and ("|  " .. GuiConfig.TitleExtra) or ""
-        TextLabel1.Text = GuiConfig.Footer
-        TextLabel2.Text = GuiConfig.Footer2 ~= "" and ("|  " .. GuiConfig.Footer2) or ""
+        Footer1Text.Text = GuiConfig.Footer
+        Footer2Text.Text = GuiConfig.Footer2
     end
 
     local UpdateTagPosition  -- forward declare
 
-    -- ===== LAYOUT CHAIN: Title -> TitleExtra -> Footer1 -> Footer2 =====
     local function UpdateHeaderChain()
         local x = 35
         x = x + TextLabel.TextBounds.X
@@ -709,19 +749,22 @@ function Chloex:Window(GuiConfig)
             TextLabelExtra.Position = UDim2.new(0, x, 0, 0)
             x = x + TextLabelExtra.TextBounds.X
         end
-        x = x + 14
-        TextLabel1.Position = UDim2.new(0, x, 0, 0)
-        x = x + TextLabel1.TextBounds.X
+        if TextLabel1.Visible then
+            x = x + 14
+            TextLabel1.Position = UDim2.new(0, x, 0.5, 0)
+            x = x + TextLabel1.AbsoluteSize.X
+        end
         if TextLabel2.Visible then
-            x = x + 10
-            TextLabel2.Position = UDim2.new(0, x, 0, 0)
+            x = x + 8
+            TextLabel2.Position = UDim2.new(0, x, 0.5, 0)
         end
         if UpdateTagPosition then UpdateTagPosition() end
     end
 
     TextLabel:GetPropertyChangedSignal("TextBounds"):Connect(UpdateHeaderChain)
     TextLabelExtra:GetPropertyChangedSignal("TextBounds"):Connect(UpdateHeaderChain)
-    TextLabel1:GetPropertyChangedSignal("TextBounds"):Connect(UpdateHeaderChain)
+    TextLabel1:GetPropertyChangedSignal("AbsoluteSize"):Connect(UpdateHeaderChain)
+    TextLabel2:GetPropertyChangedSignal("AbsoluteSize"):Connect(UpdateHeaderChain)
     UpdateHeaderChain()
 
     local TagContainer = Instance.new("Frame")
@@ -746,9 +789,9 @@ function Chloex:Window(GuiConfig)
     UpdateTagPosition = function()
         local titleW  = TextLabel.TextBounds.X
         local extraW  = TextLabelExtra.Visible and (10 + TextLabelExtra.TextBounds.X) or 0
-        local footerW = TextLabel1.TextBounds.X
-        local f2W     = TextLabel2.Visible and (10 + TextLabel2.TextBounds.X) or 0
-        local textEnd = 35 + titleW + extraW + 14 + footerW + f2W + 10
+        local footerW = TextLabel1.Visible and (14 + TextLabel1.AbsoluteSize.X) or 0
+        local f2W     = TextLabel2.Visible and (8 + TextLabel2.AbsoluteSize.X) or 0
+        local textEnd = 35 + titleW + extraW + footerW + f2W + 10
         local rightBound = -70
         local availableW = Top.AbsoluteSize.X + rightBound - textEnd
         if availableW < 0 then availableW = 0 end
