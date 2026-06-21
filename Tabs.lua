@@ -285,28 +285,17 @@ return function(
                 end)
 
                 if open then
-                    -- Buka: tampilkan dulu lalu fade in
                     ContentFrame.Visible = true
                     Divider.Visible = true
-                    ContentFrame.GroupTransparency = 1
-                    TweenService:Create(ContentFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-                        GroupTransparency = 0
-                    }):Play()
                     TweenService:Create(Divider, TweenInfo.new(0.2), {
                         BackgroundTransparency = 0.78
                     }):Play()
                 else
-                    -- Tutup: fade out lalu sembunyikan
-                    Divider.BackgroundTransparency = 0.78
-                    TweenService:Create(ContentFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
-                        GroupTransparency = 1
-                    }):Play()
                     TweenService:Create(Divider, TweenInfo.new(0.15), {
                         BackgroundTransparency = 1
                     }):Play()
-                    task.delay(0.2, function()
+                    task.delay(0.15, function()
                         ContentFrame.Visible = false
-                        ContentFrame.GroupTransparency = 0
                     end)
                 end
 
