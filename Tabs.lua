@@ -177,8 +177,8 @@ return function(
             SectionFrame.BackgroundTransparency = 0.2
             SectionFrame.BorderSizePixel = 0
             SectionFrame.Size  = UDim2.new(1, 0, 0, 32)
-            SectionFrame.AutomaticSize = Enum.AutomaticSize.Y
-            SectionFrame.ClipsDescendants = false
+            SectionFrame.AutomaticSize = Enum.AutomaticSize.None  -- matiin AutomaticSize, kita manual
+            SectionFrame.ClipsDescendants = true  -- penting buat animasi slide
             SectionFrame.Parent = SectionScroll
 
             Instance.new("UICorner", SectionFrame).CornerRadius = UDim.new(0, 7)
@@ -228,7 +228,7 @@ return function(
             -- Divider
             local Divider = Instance.new("Frame")
             Divider.BackgroundColor3 = GuiConfig.Color
-            Divider.BackgroundTransparency = 0.78
+            Divider.BackgroundTransparency = startOpen and 0.78 or 1
             Divider.BorderSizePixel = 0
             Divider.Size = UDim2.new(1, -16, 0, 1)
             Divider.Position = UDim2.new(0, 8, 0, 30)
@@ -242,10 +242,7 @@ return function(
             ContentFrame.Position = UDim2.new(0, 0, 0, 32)
             ContentFrame.Size     = UDim2.new(1, 0, 0, 0)
             ContentFrame.AutomaticSize = Enum.AutomaticSize.Y
-            ContentFrame.Visible = startOpen
             ContentFrame.Parent  = SectionFrame
-
-            Divider.Visible = startOpen
 
             local ContentList = Instance.new("UIListLayout")
             ContentList.Padding   = UDim.new(0, 4)
@@ -260,51 +257,103 @@ return function(
             ContentPad.PaddingRight  = UDim.new(0, 6)
             ContentPad.Parent        = ContentFrame
 
-            -- Collapse toggle dengan animasi
+            -- ── Fungsi hitung tinggi konten ──────────────────────────────
+            local HEADER_H = 32  -- tinggi header + divider
+
+            local function getContentHeight()
+                local h = 0
+                for _, child in ipairs(ContentFrame:GetChildren()) do
+                    if child:IsA("GuiObject") and child.Name ~= "UIListLayout" and child.Name ~= "UIPadding" then
+                        h = h + child.AbsoluteSize.Y + 4  -- 4 = padding antar item
+                    end
+                end
+                -- tambah padding atas bawah
+                h = h + 4 + 8
+                return h
+            end
+
+            -- State awal berdasarkan Open
+            local isOpen = startOpen
+            local function applyInitialState()
+                if isOpen then
+                    -- Buka: ukur konten setelah render
+                    task.defer(function()
+                        local contentH = ContentFrame.AbsoluteSize.Y
+                        if contentH <= 0 then contentH = getContentHeight() end
+                        SectionFrame.Size = UDim2.new(1, 0, 0, HEADER_H + contentH)
+                    end)
+                else
+                    -- Tutup: section hanya setinggi header
+                    SectionFrame.Size = UDim2.new(1, 0, 0, HEADER_H)
+                end
+            end
+
+            -- Jalankan setelah frame selesai dibuat
+            task.defer(applyInitialState)
+
+            -- Update ukuran saat konten berubah (item ditambah)
+            ContentFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+                if isOpen then
+                    local contentH = ContentFrame.AbsoluteSize.Y
+                    if contentH > 0 then
+                        SectionFrame.Size = UDim2.new(1, 0, 0, HEADER_H + contentH)
+                    end
+                end
+            end)
+
+            -- ── Animasi collapse/expand ───────────────────────────────────
             local isAnimating = false
             HeaderBtn.MouseButton1Click:Connect(function()
                 if isAnimating then return end
                 isAnimating = true
 
-                local open = not ContentFrame.Visible
+                isOpen = not isOpen
 
-                -- Animasi arrow rotate: kanan = tertutup, bawah = terbuka
-                TweenService:Create(ArrowIcon, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-                    Rotation = open and 90 or 0,
-                    ImageColor3 = open and GuiConfig.Color or Color3.fromRGB(140, 140, 155)
+                -- Arrow rotate
+                TweenService:Create(ArrowIcon, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                    Rotation = isOpen and 90 or 0,
+                    ImageColor3 = isOpen and GuiConfig.Color or Color3.fromRGB(140, 140, 155)
                 }):Play()
 
-                -- Animasi header background flash
-                TweenService:Create(HeaderBtn, TweenInfo.new(0.1), {
-                    BackgroundTransparency = 0.85
+                -- Header flash
+                TweenService:Create(HeaderBtn, TweenInfo.new(0.08), {
+                    BackgroundTransparency = 0.8
                 }):Play()
-                task.delay(0.1, function()
+                task.delay(0.08, function()
                     TweenService:Create(HeaderBtn, TweenInfo.new(0.15), {
                         BackgroundTransparency = 1
                     }):Play()
                 end)
 
-                if open then
-                    ContentFrame.Visible = true
-                    Divider.Visible = true
+                if isOpen then
+                    -- Expand: slide ke bawah smooth
+                    local contentH = ContentFrame.AbsoluteSize.Y
+                    if contentH <= 0 then contentH = getContentHeight() end
+
+                    TweenService:Create(SectionFrame, TweenInfo.new(0.35, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                        Size = UDim2.new(1, 0, 0, HEADER_H + contentH)
+                    }):Play()
+
                     TweenService:Create(Divider, TweenInfo.new(0.2), {
                         BackgroundTransparency = 0.78
                     }):Play()
                 else
+                    -- Collapse: slide ke atas smooth
+                    TweenService:Create(SectionFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                        Size = UDim2.new(1, 0, 0, HEADER_H)
+                    }):Play()
+
                     TweenService:Create(Divider, TweenInfo.new(0.15), {
                         BackgroundTransparency = 1
                     }):Play()
-                    task.delay(0.15, function()
-                        ContentFrame.Visible = false
-                    end)
                 end
 
-                -- Animasi stroke section saat diklik
+                -- Stroke glow
                 TweenService:Create(SectionStroke, TweenInfo.new(0.15), {
                     Transparency = 0.4,
                     Color = GuiConfig.Color
                 }):Play()
-                task.delay(0.3, function()
+                task.delay(0.35, function()
                     TweenService:Create(SectionStroke, TweenInfo.new(0.3), {
                         Transparency = 0.88,
                         Color = Color3.fromRGB(255, 255, 255)
