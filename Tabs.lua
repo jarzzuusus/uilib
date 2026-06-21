@@ -213,16 +213,16 @@ return function(
             SectionTitle.Size     = UDim2.new(1, -30, 1, 0)
             SectionTitle.Parent   = HeaderBtn
 
-            local ArrowIcon = Instance.new("TextLabel")
-            ArrowIcon.Text  = startOpen and "▾" or "▸"
-            ArrowIcon.Font  = Enum.Font.GothamBold
-            ArrowIcon.TextColor3 = Color3.fromRGB(140, 140, 155)
-            ArrowIcon.TextSize   = 14
+            local ArrowIcon = Instance.new("ImageLabel")
             ArrowIcon.BackgroundTransparency = 1
             ArrowIcon.BorderSizePixel = 0
             ArrowIcon.AnchorPoint = Vector2.new(1, 0.5)
             ArrowIcon.Position = UDim2.new(1, -10, 0.5, 0)
-            ArrowIcon.Size = UDim2.new(0, 16, 1, 0)
+            ArrowIcon.Size = UDim2.new(0, 14, 0, 14)
+            ArrowIcon.Image = getIconId("lucide:chevron-right")
+            ArrowIcon.ImageColor3 = Color3.fromRGB(140, 140, 155)
+            ArrowIcon.ScaleType = Enum.ScaleType.Fit
+            ArrowIcon.Rotation = startOpen and 90 or 0
             ArrowIcon.Parent = HeaderBtn
 
             -- Divider
@@ -268,11 +268,11 @@ return function(
 
                 local open = not ContentFrame.Visible
 
-                -- Animasi arrow rotate via tween text color (trick karena TextLabel ga bisa rotate)
-                TweenService:Create(ArrowIcon, TweenInfo.new(0.15), {
-                    TextColor3 = open and GuiConfig.Color or Color3.fromRGB(100, 100, 115)
+                -- Animasi arrow rotate: kanan = tertutup, bawah = terbuka
+                TweenService:Create(ArrowIcon, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                    Rotation = open and 90 or 0,
+                    ImageColor3 = open and GuiConfig.Color or Color3.fromRGB(140, 140, 155)
                 }):Play()
-                ArrowIcon.Text = open and "▾" or "▸"
 
                 -- Animasi header background flash
                 TweenService:Create(HeaderBtn, TweenInfo.new(0.1), {
