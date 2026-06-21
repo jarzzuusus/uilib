@@ -14,9 +14,10 @@ local ElementsModule = load("src/elements/Elements.lua")
 local KeybindModule  = load("src/elements/keybind.lua")
 local DialogModule   = load("src/elements/dialog.lua")
 local NotifyFactory       = load("src/elements/Notify.lua")
-local TabsModule          = loadUrl("https://fitri324.pythonanywhere.com/Tabs.lua/raw")
-local SearchModule        = loadUrl("https://fitri324.pythonanywhere.com/Search.lua/raw")
-local _ColorpickerSetup   = loadUrl("https://fitri324.pythonanywhere.com/Colorpicker.lua/raw")
+
+local TabsModule          = loadUrl("https://raw.githubusercontent.com/jarzzuusus/uilib/refs/heads/main/Tabs.lua")
+local SearchModule        = loadUrl("https://raw.githubusercontent.com/jarzzuusus/uilib/refs/heads/main/Search.lua")
+local _ColorpickerSetup   = loadUrl("https://raw.githubusercontent.com/jarzzuusus/uilib/refs/heads/main/ColorPicker.lua")
 
 local defaultIcons = load("src/elements/icon/basic.lua")
 local lucideIcons  = load("src/elements/icon/lucide.lua")
